@@ -1,18 +1,26 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 from functions import get_locations_daily_weather, get_location
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def weather_app():
     #key, location = get_location("london")
-    location = "London"
+    current_location = "London"
     max_temp, min_temp, summary_text = get_locations_daily_weather()
+
+    if request.method == "POST":
+        new_location = request.form.get("location")
+        #key, location = get_location(new_location)
+    else:
+        pass
+
     return render_template(
         'index.html',
-        current_location=location,
+        current_location=current_location,
         max_temp=max_temp,
         min_temp=min_temp,
-        summary=summary_text)
+        summary=summary_text,
+    )

@@ -20,6 +20,11 @@
                 <td>{{ min_temp }}C</td>
             </tr>
         </table>
+        <h3>Search for a new location</h3>
+        <form action="{{ url_for('weather_app') }}" method="post">
+            <label for="location">Location</label><br>
+            <input type="text" id="location" name="location"><input type="submit" value="Search">
+        </form>
         <p>The default location is London</p>
     </body>
 </html>
