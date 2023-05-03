@@ -1,0 +1,14 @@
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px;
+  font-family: Georgia;
+}
+
+p {
+    font-family: Georgia;
+}
+
+h1 {
+    font-family: Georgia;
+}
