@@ -6,6 +6,11 @@ from config import LOCATION_API, LOCATION_KEY, LOCATION_NAME, TOP_RESULT_INDEX, 
 
 
 def get_locations_daily_weather() -> dict: #key: str
+    """
+    Function to collect the weather for 1 day, and extract the useful information.
+    :key: Location key found using the search term
+    :return: weather dictionary containing required fields
+    """
     weather_json = EXAMPLE_RESPONSE
     # weather_json = get_daily_weather(key)
     weather_dict = get_weather_dict(weather_json)
@@ -13,6 +18,12 @@ def get_locations_daily_weather() -> dict: #key: str
 
 
 def get_location(search_term: str) -> (str, str):
+    """
+    Function to get the location key and full English name from the search term provided.
+    The location key is needed to retrieve weather information.
+    :param search_term: String place-name that has been searched for
+    :return: location key and location name
+    """
     response = requests.get(f"{LOCATION_API}&q={search_term}")
     if response.status_code == 200:
         top_result = (response.json())[TOP_RESULT_INDEX]
@@ -24,6 +35,12 @@ def get_location(search_term: str) -> (str, str):
 
 
 def get_daily_weather(key: str) -> str:
+    """
+    Function to retrieve the 1-day weather forecast from the AccuWeather API.
+    Metric = true returns values in Centigrade rather than Fahrenheit.
+    :param key: Location key
+    :return: response JSON
+    """
     response = requests.get(f"{WEATHER_DAILY_API}{key}?apikey={API_KEY}&metric=true")
     if response.status_code == 200:
         return response.json()
@@ -31,7 +48,13 @@ def get_daily_weather(key: str) -> str:
         print("sort errors")
 
 
-def get_weather_dict(weather_json) -> dict:
+def get_weather_dict(weather_json) -> dict[str, str]:
+    """
+    Function to process API response JSON by flattening and extracting the necessary fields.
+    The fields needed can be updated via config.py
+    :param weather_json: response JSON from API
+    :return: dictionary of required fields and values
+    """
     flat_json = flatten(weather_json)
     weather_dict = {WEATHER_FIELDS[old_key]: value for (old_key, value) in flat_json.items() if old_key in WEATHER_FIELDS}
     return weather_dict
