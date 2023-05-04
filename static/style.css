@@ -8,10 +8,13 @@ table, th, td {
   border-collapse: collapse;
   padding: 10px;
   font-family: Georgia;
+  text-align: left;
+  background-color: AliceBlue
 }
 
 body {
     font-family: Georgia;
+    background-color: Azure;
 }
 
 * {

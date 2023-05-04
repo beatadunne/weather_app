@@ -15,14 +15,14 @@ from config import (
 )
 
 
-def get_locations_daily_weather() -> dict:  # key: str
+def get_locations_daily_weather(key) -> dict:  # key: str
     """
     Function to collect the weather for 1 day, and extract the useful information.
     :key: Location key found using the search term
     :return: weather dictionary containing required fields
     """
-    weather_json = EXAMPLE_RESPONSE
-    # weather_json = get_daily_weather(key)
+    #weather_json = EXAMPLE_RESPONSE
+    weather_json = get_daily_weather(key)
     weather_dict = get_weather_dict(weather_json)
     return weather_dict
 
