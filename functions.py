@@ -23,7 +23,7 @@ def get_locations_daily_weather() -> dict:  # key: str
     :return: weather dictionary containing required fields
     """
     weather_json = EXAMPLE_1DAY_RESPONSE
-    #weather_json = get_daily_weather(key)
+    # weather_json = get_daily_weather(key)
     weather_dict = get_daily_weather_dict(weather_json)
     return weather_dict
 
@@ -88,15 +88,15 @@ def get_context_dict(location: str) -> dict:
 
 def get_5day_weather(weather_json):
     weather_table = pd.json_normalize(EXAMPLE_5DAY_RESPONSE["DailyForecasts"])
-    return weather_table.to_html()
+    selector = {
+        "Temperature.Minimum.Value": "Minimum Temperature",
+        "Temperature.Maximum.Value": "Maximum Temperature",
+        "Day.IconPhrase": "Day Summary",
 
-# daily_forecasts =
-# for day in daily_forecasts:
-#     print(day)
-#     flat_dat = flatten(day)
-#     df = pd.json_normalize(flat_dat)
-#     #print(df)
-#
-# df = pd.json_normalize(daily_forecasts)
-# html = df.to_html()
-# print(html)
+    }
+    small_table = weather_table.rename(columns=selector)[[*selector.values()]]
+    return small_table.to_html()
+
+
+output = get_5day_weather(EXAMPLE_5DAY_RESPONSE)
+print(output)
