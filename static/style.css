@@ -1,3 +1,8 @@
+.content {
+  max-width: 800px;
+  margin: auto;
+}
+
 table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
@@ -5,10 +10,12 @@ table, th, td {
   font-family: Georgia;
 }
 
-p {
+body {
     font-family: Georgia;
 }
 
-h1 {
-    font-family: Georgia;
+* {
+  margin: 10;
+  padding: 10;
+  box-sizing: border-box;
 }
