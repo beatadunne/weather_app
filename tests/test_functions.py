@@ -2,7 +2,7 @@ from datetime import date
 
 import pytest
 
-from functions import get_weather_dict, get_context_dict
+from functions import get_daily_weather_dict, get_context_dict
 
 
 # @todo: get_locations_daily_weather
@@ -25,8 +25,8 @@ from functions import get_weather_dict, get_context_dict
         }
     ],
 )
-def test_get_weather_dict(expected, example_response):
-    actual = get_weather_dict(example_response)
+def test_get_daily_weather_dict(expected, example_response):
+    actual = get_daily_weather_dict(example_response)
     assert actual == expected
 
 
