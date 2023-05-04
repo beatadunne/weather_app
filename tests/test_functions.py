@@ -1,6 +1,15 @@
+from datetime import date
+
 import pytest
 
-from functions import get_weather_dict
+from functions import get_weather_dict, get_context_dict
+
+
+# @todo: get_locations_daily_weather
+
+# @todo: test_get_location
+
+# @todo: test_get_daily_weather
 
 
 @pytest.mark.parametrize(
@@ -19,3 +28,11 @@ from functions import get_weather_dict
 def test_get_weather_dict(expected, example_response):
     actual = get_weather_dict(example_response)
     assert actual == expected
+
+
+def test_get_context_dict():
+    actual = get_context_dict("London")
+    today = date.today()
+    todays_date = today.strftime("%B %d, %Y")
+    assert actual == {"location": "London",
+                      "date": todays_date}
