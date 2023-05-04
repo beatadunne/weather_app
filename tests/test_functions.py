@@ -34,5 +34,4 @@ def test_get_context_dict():
     actual = get_context_dict("London")
     today = date.today()
     todays_date = today.strftime("%B %d, %Y")
-    assert actual == {"location": "London",
-                      "date": todays_date}
+    assert actual == {"location": "London", "date": todays_date}
