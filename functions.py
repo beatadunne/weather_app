@@ -3,11 +3,19 @@ from datetime import date
 import requests as requests
 from flatten_json import flatten
 
-from config import LOCATION_API, LOCATION_KEY, LOCATION_NAME, TOP_RESULT_INDEX, WEATHER_DAILY_API, API_KEY, \
-    EXAMPLE_RESPONSE, WEATHER_FIELDS
+from config import (
+    LOCATION_API,
+    LOCATION_KEY,
+    LOCATION_NAME,
+    TOP_RESULT_INDEX,
+    WEATHER_DAILY_API,
+    API_KEY,
+    EXAMPLE_RESPONSE,
+    WEATHER_FIELDS,
+)
 
 
-def get_locations_daily_weather() -> dict: #key: str
+def get_locations_daily_weather() -> dict:  # key: str
     """
     Function to collect the weather for 1 day, and extract the useful information.
     :key: Location key found using the search term
@@ -58,14 +66,20 @@ def get_weather_dict(weather_json) -> dict[str, str]:
     :return: dictionary of required fields and values
     """
     flat_json = flatten(weather_json)
-    weather_dict = {WEATHER_FIELDS[old_key]: value for (old_key, value) in flat_json.items() if old_key in WEATHER_FIELDS}
+    weather_dict = {
+        WEATHER_FIELDS[old_key]: value
+        for (old_key, value) in flat_json.items()
+        if old_key in WEATHER_FIELDS
+    }
     return weather_dict
 
 
 def get_context_dict(location: str) -> dict:
+    """
+    Function formats the location and current date into a dictionary
+    :param location: formal name of location retrieved from API
+    :return: dictionary of location and date
+    """
     today = date.today()
-    context = {
-        'location': location,
-        'date': today.strftime("%B %d, %Y")
-    }
+    context = {"location": location, "date": today.strftime("%B %d, %Y")}
     return context
