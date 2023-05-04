@@ -21,6 +21,7 @@ The style of the commits will be as follows:
 |docs    |added documentations|
 |fix     |put a fix in where something wasn't working|
 |tests   |added testing for a feature|
+|live test|live testing features, will state ACs covered|
 
 ## Data Source
 All weather data will be sourced from AccuWeather APIs
