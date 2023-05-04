@@ -1,3 +1,5 @@
+from datetime import date
+
 import requests as requests
 from flatten_json import flatten
 
@@ -58,3 +60,12 @@ def get_weather_dict(weather_json) -> dict[str, str]:
     flat_json = flatten(weather_json)
     weather_dict = {WEATHER_FIELDS[old_key]: value for (old_key, value) in flat_json.items() if old_key in WEATHER_FIELDS}
     return weather_dict
+
+
+def get_context_dict(location: str) -> dict:
+    today = date.today()
+    context = {
+        'location': location,
+        'date': today.strftime("%B %d, %Y")
+    }
+    return context

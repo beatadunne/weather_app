@@ -7,8 +7,9 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
+    <div class="content">
         <h1>Weather App</h1>
-        <p>You are currently viewing weather for: {{ current_location }}</p>
+        <p>You are currently viewing weather for: <b>{{ current_location }}</b> ({{ todays_date }})</p>
         <p>Forecast: {{ summary }}</p>
         <table>
             <tr>
@@ -20,12 +21,14 @@
                 <td>{{ min_temp }}°C</td>
             </tr>
         </table>
-        <h3>Search for a new location</h3>
+        <p><b>Search for a new location:</b></p>
         <form action="{{ url_for('weather_app') }}" method="post" autocomplete="on">
-            <label for="location">Location</label><br>
-            <input type="text" id="location" name="location"><input type="submit" value="Search">
+            <div class="search-box">
+                <label for="location">Location: </label><input type="text" id="location" name="location"><input type="submit" value="Search">
+            </div>
         </form>
         <p>The default location is London</p>
+    </div>
     </body>
 </html>
 
