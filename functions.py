@@ -1,5 +1,6 @@
 from datetime import date
 
+import pandas as pd
 import requests as requests
 from flatten_json import flatten
 
@@ -10,20 +11,20 @@ from config import (
     TOP_RESULT_INDEX,
     WEATHER_DAILY_API,
     API_KEY,
-    EXAMPLE_RESPONSE,
-    WEATHER_FIELDS,
+    EXAMPLE_1DAY_RESPONSE,
+    WEATHER_FIELDS, EXAMPLE_5DAY_RESPONSE,
 )
 
 
-def get_locations_daily_weather(key) -> dict:  # key: str
+def get_locations_daily_weather() -> dict:  # key: str
     """
     Function to collect the weather for 1 day, and extract the useful information.
     :key: Location key found using the search term
     :return: weather dictionary containing required fields
     """
-    #weather_json = EXAMPLE_RESPONSE
-    weather_json = get_daily_weather(key)
-    weather_dict = get_weather_dict(weather_json)
+    weather_json = EXAMPLE_1DAY_RESPONSE
+    #weather_json = get_daily_weather(key)
+    weather_dict = get_daily_weather_dict(weather_json)
     return weather_dict
 
 
@@ -58,7 +59,7 @@ def get_daily_weather(key: str) -> str:
         print("sort errors")
 
 
-def get_weather_dict(weather_json) -> dict[str, str]:
+def get_daily_weather_dict(weather_json) -> dict[str, str]:
     """
     Function to process API response JSON by flattening and extracting the necessary fields.
     The fields needed can be updated via config.py
@@ -83,3 +84,19 @@ def get_context_dict(location: str) -> dict:
     today = date.today()
     context = {"location": location, "date": today.strftime("%B %d, %Y")}
     return context
+
+
+def get_5day_weather(weather_json):
+    weather_table = pd.json_normalize(EXAMPLE_5DAY_RESPONSE["DailyForecasts"])
+    return weather_table.to_html()
+
+# daily_forecasts =
+# for day in daily_forecasts:
+#     print(day)
+#     flat_dat = flatten(day)
+#     df = pd.json_normalize(flat_dat)
+#     #print(df)
+#
+# df = pd.json_normalize(daily_forecasts)
+# html = df.to_html()
+# print(html)

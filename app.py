@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
-from datetime import date
-from functions import get_locations_daily_weather, get_location, get_context_dict
+
+from config import EXAMPLE_5DAY_RESPONSE
+from functions import get_locations_daily_weather, get_location, get_context_dict, get_5day_weather
 
 app = Flask(__name__)
 
@@ -17,8 +18,8 @@ def weather_app():
 
 @app.route("/london-1-day", methods=["GET", "POST"])
 def london_daily():
-    weather_dict = get_locations_daily_weather("328328")  # key
-    context_dict = get_context_dict("328328")
+    weather_dict = get_locations_daily_weather()  # key328328
+    context_dict = get_context_dict("London")
     return render_template(
         "daily_weather.html",
         current_location="London",
@@ -32,8 +33,8 @@ def london_daily():
 @app.route("/daily", methods=["GET", "POST"])
 def daily_weather():
     location = request.args.get("location")
-    key, location = get_location(location)
-    weather_dict = get_locations_daily_weather(key)  # key
+    # key, location = get_location(location)
+    weather_dict = get_locations_daily_weather()  # key
     context_dict = get_context_dict(location)
     return render_template(
         "daily_weather.html",
@@ -48,4 +49,5 @@ def daily_weather():
 @app.route("/5-day", methods=["GET", "POST"])
 def five_day_weather():
     location = request.args.get("name")
-    return render_template("five_day_weather.html", location=location)
+    weather_table = get_5day_weather(EXAMPLE_5DAY_RESPONSE)
+    return render_template("five_day_weather.html", location=location, tables=[weather_table])

@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-  <P>TEXT COMING SOON</P>
-    <p>{{ location }}</p>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <title>5 Day Weather</title>
+    </head>
+    <body>
+        <div class="content">
+            <h1>Todays Weather in {{ current_location }}</h1>
+          <P>TEXT COMING SOON</P>
+            <p>{{ location }}</p>
+            {% for table in tables %}
+                {{ table|safe }}
+            {% endfor %}
+        </div>
+    </body>
 </html>
