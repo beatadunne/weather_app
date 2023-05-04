@@ -1,16 +1,15 @@
 import requests as requests
-import pandas as pd
-from pandas import DataFrame
+from flatten_json import flatten
 
 from config import LOCATION_API, LOCATION_KEY, LOCATION_NAME, TOP_RESULT_INDEX, WEATHER_DAILY_API, API_KEY, \
-    EXAMPLE_RESPONSE
+    EXAMPLE_RESPONSE, WEATHER_FIELDS
 
 
-def get_locations_daily_weather():
+def get_locations_daily_weather() -> dict: #key: str
     weather_json = EXAMPLE_RESPONSE
-    max_temp, min_temp = get_temp_table(weather_json)
-    summary_text = get_weather_summary(weather_json)
-    return max_temp, min_temp, summary_text
+    # weather_json = get_daily_weather(key)
+    weather_dict = get_weather_dict(weather_json)
+    return weather_dict
 
 
 def get_location(search_term: str) -> (str, str):
@@ -32,12 +31,7 @@ def get_daily_weather(key: str) -> str:
         print("sort errors")
 
 
-def get_temp_table(weather_json) -> (str, str):
-    max_val = weather_json["DailyForecasts"][0]["Temperature"]["Maximum"]["Value"]
-    min_val = weather_json["DailyForecasts"][0]["Temperature"]["Minimum"]["Value"]
-    return max_val, min_val
-
-
-def get_weather_summary(weather_json) -> str:
-    summary = weather_json["Headline"]["Text"]
-    return summary
+def get_weather_dict(weather_json) -> dict:
+    flat_json = flatten(weather_json)
+    weather_dict = {WEATHER_FIELDS[old_key]: value for (old_key, value) in flat_json.items() if old_key in WEATHER_FIELDS}
+    return weather_dict

@@ -13,15 +13,15 @@
         <table>
             <tr>
                 <td>Maximum Temperature</td>
-                <td>{{ max_temp }}C</td>
+                <td>{{ max_temp }}°C</td>
             </tr>
             <tr>
                 <td>Minimum Temperature</td>
-                <td>{{ min_temp }}C</td>
+                <td>{{ min_temp }}°C</td>
             </tr>
         </table>
         <h3>Search for a new location</h3>
-        <form action="{{ url_for('weather_app') }}" method="post">
+        <form action="{{ url_for('weather_app') }}" method="post" autocomplete="on">
             <label for="location">Location</label><br>
             <input type="text" id="location" name="location"><input type="submit" value="Search">
         </form>
