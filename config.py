@@ -1,14 +1,17 @@
+""" Config file """
+
+""" Variables needed when connecting to the API """
 API_KEY = "dFQky8iYcFxLpRAWb3jTUKyxljIRB2UZ"
 API_URL_ROOT = "http://dataservice.accuweather.com"
 
+""" API and variables needed to retrieve Location key """
 LOCATION_API = f"{API_URL_ROOT}/locations/v1/cities/search?apikey={API_KEY}"
-
 LOCATION_KEY = "Key"
 LOCATION_NAME = "EnglishName"
 TOP_RESULT_INDEX = 0
 
+""" API and variables needed to retrieve Weather data """
 WEATHER_DAILY_API = f"{API_URL_ROOT}/forecasts/v1/daily/1day/"
-
 WEATHER_FIELDS = {
     "Headline_Text": "Summary",
     "Headline_Category": "WeatherCategory",
@@ -18,6 +21,8 @@ WEATHER_FIELDS = {
     "DailyForecasts_0_Day_IconPhrase": "DayWeatherIconPhrase",
 }
 
+# @todo: move this into a test file/fixture
+""" Example Response used for testing """
 EXAMPLE_RESPONSE = {
     "Headline": {
         "EffectiveDate": "2023-05-04T20:00:00+01:00",
