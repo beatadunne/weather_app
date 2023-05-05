@@ -282,3 +282,220 @@ def expected_html_table():
  '    </tr>\n'
  '  </tbody>\n'
  '</table>')
+
+
+@pytest.fixture
+def locations_api_response():
+    return [
+        {
+            "Version": 1,
+            "Key": "328328",
+            "Type": "City",
+            "Rank": 10,
+            "LocalizedName": "London",
+            "EnglishName": "London",
+            "PrimaryPostalCode": "EC4A 2",
+            "Region": {
+                "ID": "EUR",
+                "LocalizedName": "Europe",
+                "EnglishName": "Europe"
+            },
+            "Country": {
+                "ID": "GB",
+                "LocalizedName": "United Kingdom",
+                "EnglishName": "United Kingdom"
+            },
+            "AdministrativeArea": {
+                "ID": "LND",
+                "LocalizedName": "London",
+                "EnglishName": "London",
+                "Level": 1,
+                "LocalizedType": "London Borough",
+                "EnglishType": "London Borough",
+                "CountryID": "GB"
+            },
+            "TimeZone": {
+                "Code": "BST",
+                "Name": "Europe/London",
+                "GmtOffset": 1,
+                "IsDaylightSaving": 'true',
+                "NextOffsetChange": "2023-10-29T01:00:00Z"
+            },
+            "GeoPosition": {
+                "Latitude": 51.514,
+                "Longitude": -0.107,
+                "Elevation": {
+                    "Metric": {
+                        "Value": 18,
+                        "Unit": "m",
+                        "UnitType": 5
+                    },
+                    "Imperial": {
+                        "Value": 59,
+                        "Unit": "ft",
+                        "UnitType": 0
+                    }
+                }
+            },
+            "IsAlias": 'false',
+            "SupplementalAdminAreas": [
+                {
+                    "Level": 0,
+                    "LocalizedName": "England",
+                    "EnglishName": "England"
+                },
+                {
+                    "Level": 3,
+                    "LocalizedName": "Castle Baynard",
+                    "EnglishName": "Castle Baynard"
+                }
+            ],
+            "DataSets": [
+                "AirQualityCurrentConditions",
+                "AirQualityForecasts",
+                "Alerts",
+                "DailyPollenForecast",
+                "ForecastConfidence",
+                "FutureRadar",
+                "MinuteCast",
+                "Radar"
+            ]
+        },
+        {
+            "Version": 1,
+            "Key": "55489",
+            "Type": "City",
+            "Rank": 35,
+            "LocalizedName": "London",
+            "EnglishName": "London",
+            "PrimaryPostalCode": "N6B",
+            "Region": {
+                "ID": "NAM",
+                "LocalizedName": "North America",
+                "EnglishName": "North America"
+            },
+            "Country": {
+                "ID": "CA",
+                "LocalizedName": "Canada",
+                "EnglishName": "Canada"
+            },
+            "AdministrativeArea": {
+                "ID": "ON",
+                "LocalizedName": "Ontario",
+                "EnglishName": "Ontario",
+                "Level": 1,
+                "LocalizedType": "Province",
+                "EnglishType": "Province",
+                "CountryID": "CA"
+            },
+            "TimeZone": {
+                "Code": "EDT",
+                "Name": "America/Toronto",
+                "GmtOffset": -4,
+                "IsDaylightSaving": 'true',
+                "NextOffsetChange": "2023-11-05T06:00:00Z"
+            },
+            "GeoPosition": {
+                "Latitude": 42.983,
+                "Longitude": -81.244,
+                "Elevation": {
+                    "Metric": {
+                        "Value": 247,
+                        "Unit": "m",
+                        "UnitType": 5
+                    },
+                    "Imperial": {
+                        "Value": 810,
+                        "Unit": "ft",
+                        "UnitType": 0
+                    }
+                }
+            },
+            "IsAlias": 'false',
+            "SupplementalAdminAreas": [
+                {
+                    "Level": 2,
+                    "LocalizedName": "Middlesex",
+                    "EnglishName": "Middlesex"
+                }
+            ],
+            "DataSets": [
+                "AirQualityCurrentConditions",
+                "AirQualityForecasts",
+                "Alerts",
+                "ForecastConfidence",
+                "FutureRadar",
+                "MinuteCast",
+                "Radar"
+            ]
+        },
+        {
+            "Version": 1,
+            "Key": "333298",
+            "Type": "City",
+            "Rank": 75,
+            "LocalizedName": "London",
+            "EnglishName": "London",
+            "PrimaryPostalCode": "40741",
+            "Region": {
+                "ID": "NAM",
+                "LocalizedName": "North America",
+                "EnglishName": "North America"
+            },
+            "Country": {
+                "ID": "US",
+                "LocalizedName": "United States",
+                "EnglishName": "United States"
+            },
+            "AdministrativeArea": {
+                "ID": "KY",
+                "LocalizedName": "Kentucky",
+                "EnglishName": "Kentucky",
+                "Level": 1,
+                "LocalizedType": "State",
+                "EnglishType": "State",
+                "CountryID": "US"
+            },
+            "TimeZone": {
+                "Code": "EDT",
+                "Name": "America/New_York",
+                "GmtOffset": -4,
+                "IsDaylightSaving": 'true',
+                "NextOffsetChange": "2023-11-05T06:00:00Z"
+            },
+            "GeoPosition": {
+                "Latitude": 37.129,
+                "Longitude": -84.083,
+                "Elevation": {
+                    "Metric": {
+                        "Value": 392,
+                        "Unit": "m",
+                        "UnitType": 5
+                    },
+                    "Imperial": {
+                        "Value": 1285,
+                        "Unit": "ft",
+                        "UnitType": 0
+                    }
+                }
+            },
+            "IsAlias": 'false',
+            "SupplementalAdminAreas": [
+                {
+                    "Level": 2,
+                    "LocalizedName": "Laurel",
+                    "EnglishName": "Laurel"
+                }
+            ],
+            "DataSets": [
+                "AirQualityCurrentConditions",
+                "AirQualityForecasts",
+                "Alerts",
+                "DailyAirQualityForecast",
+                "DailyPollenForecast",
+                "ForecastConfidence",
+                "FutureRadar",
+                "MinuteCast",
+                "Radar"
+            ]
+        }]
