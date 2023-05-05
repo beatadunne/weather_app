@@ -12,7 +12,7 @@ from config import (
     WEATHER_DAILY_API,
     API_KEY,
     EXAMPLE_1DAY_RESPONSE,
-    WEATHER_FIELDS, EXAMPLE_5DAY_RESPONSE,
+    WEATHER_FIELDS, EXAMPLE_5DAY_RESPONSE, ONE_DAY, FIVE_DAY
 )
 
 
@@ -22,13 +22,13 @@ def get_locations_weather(num_of_days: str, key: str) -> dict or pd.DataFrame:  
     :key: Location key found using the search term
     :return: weather dictionary containing required fields
     """
-    if num_of_days == "1 day":
-        #weather_json = EXAMPLE_1DAY_RESPONSE
-        weather_json = get_daily_weather_json(key)
+    if num_of_days == ONE_DAY:
+        weather_json = EXAMPLE_1DAY_RESPONSE
+        # weather_json = get_weather_json(key, ONE_DAY)
         return get_daily_weather_dict(weather_json)
-    elif num_of_days == "5 days":
-        #weather_json = EXAMPLE_5DAY_RESPONSE
-        weather_json = get_five_day_weather_json(key)
+    elif num_of_days == FIVE_DAY:
+        weather_json = EXAMPLE_5DAY_RESPONSE
+        # weather_json = get_weather_json(key, FIVE_DAY)
         return get_five_day_weather_table(weather_json)
     else:
         print("need to sort errors")
@@ -51,22 +51,15 @@ def get_location(search_term: str) -> (str, str):
         print("need to sort out error messages")
 
 
-def get_daily_weather_json(key: str) -> str:
+def get_weather_json(key: str, days: str) -> str:
     """
-    Function to retrieve the 1-day weather forecast from the AccuWeather API.
+    Function to retrieve the weather forecast from the AccuWeather API, for a given timespan option.
     Metric = true returns values in Centigrade rather than Fahrenheit.
     :param key: Location key
+    :param days: number of days (either 1day or 5day)
     :return: response JSON
     """
-    response = requests.get(f"{WEATHER_DAILY_API}/1day/{key}?apikey={API_KEY}&metric=true")
-    if response.status_code == 200:
-        return response.json()
-    else:
-        print("sort errors")
-
-
-def get_five_day_weather_json(key: str) -> str:
-    response = requests.get(f"{WEATHER_DAILY_API}/5day/{key}?apikey={API_KEY}&metric=true")
+    response = requests.get(f"{WEATHER_DAILY_API}/{days}/{key}?apikey={API_KEY}&metric=true")
     if response.status_code == 200:
         return response.json()
     else:
@@ -100,7 +93,12 @@ def get_context_dict(location: str) -> dict:
     return context
 
 
-def get_five_day_weather_table(weather_json) -> str:
+def get_five_day_weather_table(weather_json: str) -> str:
+    """
+    Function formats the weather json into a table with the features we require
+    :param weather_json: response JSON from API
+    :return: html of table
+    """
     weather_table = pd.json_normalize(weather_json["DailyForecasts"])
     weather_table["Date"] = weather_table["Date"].str[:10]
     selector = {
@@ -111,5 +109,5 @@ def get_five_day_weather_table(weather_json) -> str:
         "Night.IconPhrase": "Night Summary"
     }
     small_table = weather_table.rename(columns=selector)[[*selector.values()]]
-    small_table.set_index("Date", inplace=True)
-    return small_table.to_html()
+    # small_table.set_index("Date", inplace=True)
+    return small_table.to_html(index=False)

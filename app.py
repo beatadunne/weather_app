@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 
+from config import ONE_DAY, FIVE_DAY
 from functions import get_locations_weather, get_context_dict, get_location
 
 app = Flask(__name__)
@@ -21,7 +22,7 @@ def weather_app():
 
 @app.route("/london-1-day", methods=["GET", "POST"])
 def london_daily():
-    weather_dict = get_locations_weather("1 day", "328328")  # key328328
+    weather_dict = get_locations_weather(ONE_DAY, "328328")  # key328328
     context_dict = get_context_dict("London")
     return render_template(
         "daily_weather.html",
@@ -37,7 +38,7 @@ def london_daily():
 def daily_weather():
     location = request.args.get("location")
     key, location = get_location(location)
-    weather_dict = get_locations_weather("1 day", key)  # key
+    weather_dict = get_locations_weather(ONE_DAY, key)  # key
     context_dict = get_context_dict(location)
     return render_template(
         "daily_weather.html",
@@ -54,5 +55,5 @@ def five_day_weather():
     location = request.args.get("location")
     key, location = get_location(location)
    # key = "328328"
-    weather_table = get_locations_weather("5 days", key)
+    weather_table = get_locations_weather(FIVE_DAY, key)
     return render_template("five_day_weather.html", location=location, tables=[weather_table])

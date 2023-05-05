@@ -21,6 +21,10 @@ WEATHER_FIELDS = {
     "DailyForecasts_0_Day_IconPhrase": "DayWeatherIconPhrase",
 }
 
+""" Variables to specify timespan """
+ONE_DAY = "1day"
+FIVE_DAY = "5day"
+
 # @todo: move this into a test file/fixture
 """ Example Response used for testing """
 EXAMPLE_1DAY_RESPONSE = {
