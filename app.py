@@ -20,20 +20,6 @@ def weather_app():
             "index.html")
 
 
-@app.route("/london-1-day", methods=["GET", "POST"])
-def london_daily():
-    weather_dict = get_locations_weather(ONE_DAY, "328328")  # key328328
-    context_dict = get_context_dict("London")
-    return render_template(
-        "daily_weather.html",
-        current_location="London",
-        todays_date=context_dict.get("date"),
-        max_temp=weather_dict.get("MaxTemp"),
-        min_temp=weather_dict.get("MinTemp"),
-        summary=weather_dict.get("Summary"),
-    )
-
-
 @app.route("/daily", methods=["GET", "POST"])
 def daily_weather():
     location = request.args.get("location")
