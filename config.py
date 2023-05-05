@@ -11,7 +11,7 @@ LOCATION_NAME = "EnglishName"
 TOP_RESULT_INDEX = 0
 
 """ API and variables needed to retrieve Weather data """
-WEATHER_DAILY_API = f"{API_URL_ROOT}/forecasts/v1/daily/1day/"
+WEATHER_DAILY_API = f"{API_URL_ROOT}/forecasts/v1/daily"
 WEATHER_FIELDS = {
     "Headline_Text": "Summary",
     "Headline_Category": "WeatherCategory",
