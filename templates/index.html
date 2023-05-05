@@ -9,13 +9,19 @@
     <body>
     <div class="content">
         <h1>Welcome to Weather</h1>
-        <p><a href="{{ url_for('london_daily') }}"><u>London 1-day Weather</u></a></p>
         <p><b>Search for a new location:</b></p>
         <form action="{{ url_for('weather_app') }}" method="post" autocomplete="on">
             <div class="search-box">
-                <label for="location">Location: </label><input type="text" id="location" name="location"><input type="submit" value="Search">
+                <label for="location">Location: </label><input type="text" id="location" name="location"><br>
+                <label for="days">Timespan:</label>
+                <select id="days" name="days">
+                  <option value="1 day">1 Day</option>
+                  <option value="5 days">5 Days</option>
+                </select><br>
+                <input type="submit" value="Search">
             </div>
         </form>
+        <p>Quick Link: <a href="{{ url_for('london_daily') }}"><u>London 1-day Weather</u></a></p>
     </div>
     </body>
 </html>
