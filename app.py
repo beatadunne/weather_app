@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 
-from config import EXAMPLE_5DAY_RESPONSE
-from functions import get_locations_daily_weather, get_location, get_context_dict, get_5day_weather
+from functions import get_locations_weather, get_context_dict, get_location
 
 app = Flask(__name__)
 
@@ -10,7 +9,11 @@ app = Flask(__name__)
 def weather_app():
     if request.method == "POST":
         location = request.form.get("location")
-        return redirect(url_for("daily_weather", location=location, code=307))
+        duration = request.form.get("days")
+        if duration == "1 day":
+            return redirect(url_for("daily_weather", location=location, code=307))
+        if duration == "5 days":
+            return redirect(url_for("five_day_weather", location=location, code=307))
     else:
         return render_template(
             "index.html")
@@ -18,7 +21,7 @@ def weather_app():
 
 @app.route("/london-1-day", methods=["GET", "POST"])
 def london_daily():
-    weather_dict = get_locations_daily_weather()  # key328328
+    weather_dict = get_locations_weather("1 day", "328328")  # key328328
     context_dict = get_context_dict("London")
     return render_template(
         "daily_weather.html",
@@ -33,8 +36,8 @@ def london_daily():
 @app.route("/daily", methods=["GET", "POST"])
 def daily_weather():
     location = request.args.get("location")
-    # key, location = get_location(location)
-    weather_dict = get_locations_daily_weather()  # key
+    key, location = get_location(location)
+    weather_dict = get_locations_weather("1 day", key)  # key
     context_dict = get_context_dict(location)
     return render_template(
         "daily_weather.html",
@@ -48,6 +51,8 @@ def daily_weather():
 
 @app.route("/5-day", methods=["GET", "POST"])
 def five_day_weather():
-    location = request.args.get("name")
-    weather_table = get_5day_weather(EXAMPLE_5DAY_RESPONSE)
+    location = request.args.get("location")
+    key, location = get_location(location)
+   # key = "328328"
+    weather_table = get_locations_weather("5 days", key)
     return render_template("five_day_weather.html", location=location, tables=[weather_table])
