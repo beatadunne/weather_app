@@ -15,13 +15,13 @@ This assessment has 4 user stories:
 ## Commits
 The style of the commits will be as follows:
 
-| prefix | meaning |
-|--------|---------|
-|feature |a new bit of functionality|
-|docs    |added documentations|
-|fix     |put a fix in where something wasn't working|
-|tests   |added testing for a feature|
-|live test|live testing features, will state ACs covered|
+| prefix | meaning                                                          |
+|--------|------------------------------------------------------------------|
+|feature | a new bit of functionality                                       |
+|docs    | added documentations (docstrings, typehints etc.)                |
+|fix     | put a fix in where something wasn't working or needed correcting |
+|tests   | added testing for a feature                                      |
+|live test| live testing features, will state ACs covered                    |
 
 ## Data Source
 All weather data will be sourced from AccuWeather APIs
