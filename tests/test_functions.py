@@ -35,3 +35,6 @@ def test_get_context_dict():
     today = date.today()
     todays_date = today.strftime("%B %d, %Y")
     assert actual == {"location": "London", "date": todays_date}
+
+
+# @todo test_get_5day_weather
