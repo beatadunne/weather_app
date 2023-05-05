@@ -16,8 +16,7 @@ def weather_app():
         if duration == "5 days":
             return redirect(url_for("five_day_weather", location=location, code=307))
     else:
-        return render_template(
-            "index.html")
+        return render_template("index.html")
 
 
 @app.route("/daily", methods=["GET", "POST"])
@@ -40,6 +39,8 @@ def daily_weather():
 def five_day_weather():
     location = request.args.get("location")
     key, location = get_location(location)
-   # key = "328328"
+    # key = "328328"
     weather_table = get_locations_weather(FIVE_DAY, key)
-    return render_template("five_day_weather.html", location=location, tables=[weather_table])
+    return render_template(
+        "five_day_weather.html", location=location, tables=[weather_table]
+    )

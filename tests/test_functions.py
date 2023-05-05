@@ -4,17 +4,25 @@ import pytest
 import requests_mock
 
 from config import LOCATION_API, WEATHER_DAILY_API, API_KEY
-from functions import get_daily_weather_dict, get_context_dict, get_five_day_weather_table, get_location, \
-    get_weather_json
+from functions import (
+    get_daily_weather_dict,
+    get_context_dict,
+    get_five_day_weather_table,
+    get_location,
+    get_weather_json,
+)
 
 
 # @todo: get_locations_weather
+
 
 @pytest.mark.parametrize(
     "search_term, expected_location, expected_key",
     [["london", "London", "328328"]],
 )
-def test_get_location(search_term, expected_location, expected_key, locations_api_response):
+def test_get_location(
+    search_term, expected_location, expected_key, locations_api_response
+):
     with requests_mock.Mocker() as m:
         m.get(f"{LOCATION_API}&q={search_term}", json=locations_api_response)
         actual_key, actual_location = get_location(search_term)
@@ -22,14 +30,16 @@ def test_get_location(search_term, expected_location, expected_key, locations_ap
         assert actual_location == expected_location
 
 
-@pytest.mark.parametrize(
-    "key, days",
-    [["328328", "1day"]])
+@pytest.mark.parametrize("key, days", [["328328", "1day"]])
 def test_get_weather_json(key, days, example_one_day_response):
     with requests_mock.Mocker() as m:
-        m.get(f"{WEATHER_DAILY_API}/{days}/{key}?apikey={API_KEY}&metric=true", json=example_one_day_response)
+        m.get(
+            f"{WEATHER_DAILY_API}/{days}/{key}?apikey={API_KEY}&metric=true",
+            json=example_one_day_response,
+        )
         actual_response = get_weather_json(key, days)
         assert actual_response == example_one_day_response
+
 
 @pytest.mark.parametrize(
     "expected",
@@ -59,4 +69,3 @@ def test_get_context_dict():
 def test_get_five_day_weather_table(example_five_day_response, expected_html_table):
     actual_html = get_five_day_weather_table(example_five_day_response)
     assert actual_html == expected_html_table
-

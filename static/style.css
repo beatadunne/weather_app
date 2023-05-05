@@ -1,5 +1,4 @@
 .content {
-  max-width: 800px;
   margin: auto;
 }
 
@@ -9,7 +8,9 @@ table, th, td {
   padding: 10px;
   font-family: Georgia;
   text-align: left;
-  background-color: AliceBlue
+  background-color: AliceBlue;
+  min-width: fit-content;
+  white-space: nowrap;
 }
 
 body {

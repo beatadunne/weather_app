@@ -12,11 +12,16 @@ from config import (
     WEATHER_DAILY_API,
     API_KEY,
     EXAMPLE_1DAY_RESPONSE,
-    WEATHER_FIELDS, EXAMPLE_5DAY_RESPONSE, ONE_DAY, FIVE_DAY
+    WEATHER_FIELDS,
+    EXAMPLE_5DAY_RESPONSE,
+    ONE_DAY,
+    FIVE_DAY,
 )
 
 
-def get_locations_weather(num_of_days: str, key: str) -> dict or pd.DataFrame:  # key: str
+def get_locations_weather(
+    num_of_days: str, key: str
+) -> dict or pd.DataFrame:  # key: str
     """
     Function to collect the weather for 1 day, and extract the useful information.
     :key: Location key found using the search term
@@ -59,7 +64,9 @@ def get_weather_json(key: str, days: str) -> str:
     :param days: number of days (either 1day or 5day)
     :return: response JSON
     """
-    response = requests.get(f"{WEATHER_DAILY_API}/{days}/{key}?apikey={API_KEY}&metric=true")
+    response = requests.get(
+        f"{WEATHER_DAILY_API}/{days}/{key}?apikey={API_KEY}&metric=true"
+    )
     if response.status_code == 200:
         return response.json()
     else:
@@ -106,7 +113,7 @@ def get_five_day_weather_table(weather_json: str) -> str:
         "Temperature.Minimum.Value": "Minimum Temperature",
         "Temperature.Maximum.Value": "Maximum Temperature",
         "Day.IconPhrase": "Day Summary",
-        "Night.IconPhrase": "Night Summary"
+        "Night.IconPhrase": "Night Summary",
     }
     small_table = weather_table.rename(columns=selector)[[*selector.values()]]
     # small_table.set_index("Date", inplace=True)
