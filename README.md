@@ -11,6 +11,8 @@ This assessment has 4 user stories:
   - GIVEN a user is looking for a weather for in a location, WHEN I visit the forecast application, THEN I should be shown a 5 day forecast for that location.
 - Use my location (stretch goal)
   - GIVEN a user visits the forecast application and wants the application to automatically detect their location, WHEN the user selects “Use my location”, THEN a forecast for their current location should be shown.
+
+ 
 This repo covers the first 3.
 
 ## Commits

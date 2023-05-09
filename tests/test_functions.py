@@ -13,9 +13,6 @@ from functions import (
 )
 
 
-# @todo: get_locations_weather
-
-
 @pytest.mark.parametrize(
     "search_term, expected_location, expected_key",
     [["london", "London", "328328"]],
