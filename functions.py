@@ -1,3 +1,4 @@
+import logging
 from datetime import date
 
 import pandas as pd
@@ -18,6 +19,8 @@ from config import (
     FIVE_DAY,
 )
 
+logger = logging.getLogger()
+
 
 def get_locations_weather(
     num_of_days: str, key: str
@@ -36,7 +39,7 @@ def get_locations_weather(
         # weather_json = get_weather_json(key, FIVE_DAY)
         return get_five_day_weather_table(weather_json)
     else:
-        print("need to sort errors")
+        logger.warning("Unknown number of days entered")
 
 
 def get_location(search_term: str) -> (str, str):
@@ -53,7 +56,7 @@ def get_location(search_term: str) -> (str, str):
         location_name = top_result[LOCATION_NAME]
         return location_key, location_name
     else:
-        print("need to sort out error messages")
+        logger.warning("Location cannot be found")
 
 
 def get_weather_json(key: str, days: str) -> str:
@@ -70,7 +73,7 @@ def get_weather_json(key: str, days: str) -> str:
     if response.status_code == 200:
         return response.json()
     else:
-        print("sort errors")
+        logger.warning("Weather cannot be retrieved")
 
 
 def get_daily_weather_dict(weather_json) -> dict[str, str]:
@@ -100,10 +103,10 @@ def get_context_dict(location: str) -> dict:
     return context
 
 
-def get_five_day_weather_table(weather_json: str) -> str:
+def get_five_day_weather_table(weather_json) -> str:
     """
     Function formats the weather json into a table with the features we require
-    :param weather_json: response JSON from API
+    :param weather_json: response JSON from API (Note: there is no typehint for JSON)
     :return: html of table
     """
     weather_table = pd.json_normalize(weather_json["DailyForecasts"])
@@ -116,5 +119,4 @@ def get_five_day_weather_table(weather_json: str) -> str:
         "Night.IconPhrase": "Night Summary",
     }
     small_table = weather_table.rename(columns=selector)[[*selector.values()]]
-    # small_table.set_index("Date", inplace=True)
     return small_table.to_html(index=False)
