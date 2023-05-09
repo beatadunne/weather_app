@@ -31,7 +31,7 @@ def test_get_location(
 
 
 @pytest.mark.parametrize("key, days", [["328328", "1day"]])
-def test_get_weather_json(key, days, example_one_day_response):
+def test_get_weather_json_one_day(key, days, example_one_day_response):
     with requests_mock.Mocker() as m:
         m.get(
             f"{WEATHER_DAILY_API}/{days}/{key}?apikey={API_KEY}&metric=true",
@@ -39,6 +39,17 @@ def test_get_weather_json(key, days, example_one_day_response):
         )
         actual_response = get_weather_json(key, days)
         assert actual_response == example_one_day_response
+
+
+@pytest.mark.parametrize("key, days", [["328328", "5day"]])
+def test_get_weather_json_five_day(key, days, example_five_day_response):
+    with requests_mock.Mocker() as m:
+        m.get(
+            f"{WEATHER_DAILY_API}/{days}/{key}?apikey={API_KEY}&metric=true",
+            json=example_five_day_response,
+        )
+        actual_response = get_weather_json(key, days)
+        assert actual_response == example_five_day_response
 
 
 @pytest.mark.parametrize(
