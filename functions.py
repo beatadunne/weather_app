@@ -12,34 +12,10 @@ from config import (
     TOP_RESULT_INDEX,
     WEATHER_DAILY_API,
     API_KEY,
-    EXAMPLE_1DAY_RESPONSE,
     WEATHER_FIELDS,
-    EXAMPLE_5DAY_RESPONSE,
-    ONE_DAY,
-    FIVE_DAY,
 )
 
 logger = logging.getLogger()
-
-
-def get_locations_weather(
-    num_of_days: str, key: str
-) -> dict or pd.DataFrame:  # key: str
-    """
-    Function to collect the weather for 1 day, and extract the useful information.
-    :key: Location key found using the search term
-    :return: weather dictionary containing required fields
-    """
-    if num_of_days == ONE_DAY:
-        weather_json = EXAMPLE_1DAY_RESPONSE
-        # weather_json = get_weather_json(key, ONE_DAY)
-        return get_daily_weather_dict(weather_json)
-    elif num_of_days == FIVE_DAY:
-        weather_json = EXAMPLE_5DAY_RESPONSE
-        # weather_json = get_weather_json(key, FIVE_DAY)
-        return get_five_day_weather_table(weather_json)
-    else:
-        logger.warning("Unknown number of days entered")
 
 
 def get_location(search_term: str) -> (str, str):

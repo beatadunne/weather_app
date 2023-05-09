@@ -1,9 +1,17 @@
-from flask import Flask, render_template, request, redirect, url_for
 import logging
-from config import ONE_DAY, FIVE_DAY
-from functions import get_locations_weather, get_context_dict, get_location
 
-logging.basicConfig(filename='record.log', level=logging.DEBUG)
+from flask import Flask, render_template, request, redirect, url_for
+
+from config import ONE_DAY, FIVE_DAY
+from functions import (
+    get_context_dict,
+    get_location,
+    get_weather_json,
+    get_daily_weather_dict,
+    get_five_day_weather_table,
+)
+
+logging.basicConfig(filename="record.log", level=logging.DEBUG)
 app = Flask(__name__)
 
 
@@ -25,7 +33,8 @@ def weather_app():
 def daily_weather():
     location = request.args.get("location")
     key, location = get_location(location)
-    weather_dict = get_locations_weather(ONE_DAY, key)
+    weather_info = get_weather_json(key, ONE_DAY)
+    weather_dict = get_daily_weather_dict(weather_info)
     context_dict = get_context_dict(location)
     return render_template(
         "daily_weather.html",
@@ -41,8 +50,8 @@ def daily_weather():
 def five_day_weather():
     location = request.args.get("location")
     key, location = get_location(location)
-    # key = "328328"
-    weather_table = get_locations_weather(FIVE_DAY, key)
+    weather_info = get_weather_json(key, FIVE_DAY)
+    weather_table = get_five_day_weather_table(weather_info)
     return render_template(
         "five_day_weather.html", location=location, tables=[weather_table]
     )
